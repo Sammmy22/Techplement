@@ -1,5 +1,3 @@
-// /app/api/hello/route.js
-
 import QUOTES from "./quotes.json";
 
 export async function GET(request: Request) {

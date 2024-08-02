@@ -17,33 +17,34 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-const authors = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-];
+type Author = {
+  value: string;
+  label: string;
+};
 
 export default function SearchBar() {
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+  const [authors, setAuthors] = React.useState<Author[]>([]);
+
+  React.useEffect(() => {
+    const getAuthors = async () => {
+      const response = await fetch("/api/quotes/authors");
+      const { AUTHORS } = await response.json();
+
+      const formattedAuthors = AUTHORS.map((author: any) => ({
+        value: author,
+        label: author,
+      }));
+      setAuthors(formattedAuthors);
+    };
+
+    getAuthors();
+  }, []);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -57,32 +58,32 @@ export default function SearchBar() {
           {value
             ? authors.find((author) => author.value === value)?.label
             : "Search author..."}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-full p-0">
         <Command>
           <CommandInput placeholder="Search author..." />
           <CommandEmpty>No author found.</CommandEmpty>
           <CommandList>
             <CommandGroup>
               {authors.map((author) => (
-                <CommandItem
+                <Link
                   key={author.value}
-                  value={author.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
+                  className="text-white"
+                  href={`/authors/${author.value}`}
                 >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === author.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {author.label}
-                </CommandItem>
+                  <CommandItem
+                    onSelect={() => {
+                      setValue(author.value);
+                      setOpen(false);
+                      router.push(`/authors/${author.value}`);
+                    }}
+                    className="cursor-pointer"
+                  >
+                    {author.label}
+                  </CommandItem>
+                </Link>
               ))}
             </CommandGroup>
           </CommandList>
