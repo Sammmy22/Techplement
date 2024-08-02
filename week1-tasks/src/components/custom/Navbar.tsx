@@ -6,7 +6,7 @@ import SearchBar from "@/components/custom/SearchBar";
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 flex h-16 items-center border-b bg-background px-4 sm:px-6">
+    <header className="sticky top-0 z-50 flex h-16 items-center border-b bg-background px-4 sm:px-6">
       <nav className="hidden flex-col sm:flex sm:flex-row sm:items-center sm:gap-5 lg:gap-6 m-auto">
         <Link
           href="/"
@@ -26,7 +26,7 @@ export default function Navbar() {
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
             <Link
-              href="#"
+              href="/"
               className="flex items-center gap-2 text-lg font-semibold"
             >
               Quoter

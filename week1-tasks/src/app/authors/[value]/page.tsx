@@ -12,14 +12,12 @@ type Quote = {
 };
 
 const AuthorPage = () => {
-  const { value } = useParams(); // Access the dynamic URL parameter
+  const { value } = useParams();
   const [authorData, setAuthorData] = useState<Quote[]>([]);
 
   useEffect(() => {
     if (value) {
       const decodedValue = decodeURIComponent(value as string);
-
-      //   console.log(decodedValue);
 
       const fetchAuthorData = async () => {
         try {
@@ -31,7 +29,6 @@ const AuthorPage = () => {
             body: JSON.stringify({ author: decodedValue }),
           });
           const { quotes } = await response.json();
-          console.log(quotes);
           setAuthorData(quotes);
         } catch (error) {
           console.error("Error fetching author data:", error);
