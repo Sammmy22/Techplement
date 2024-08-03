@@ -50,7 +50,7 @@ const AuthorPage = () => {
       </p>
 
       <div className="flex flex-col justify-center items-center">
-        {/* {authorQuotes ? (
+        {authorQuotes ? (
           authorQuotes.map((quote) => (
             <Card className="w-3/4 my-3" key={quote._id}>
               <CardHeader>
@@ -61,11 +61,11 @@ const AuthorPage = () => {
               </CardFooter>
             </Card>
           ))
-        ) : ( */}
-        <p className="whitespace-pre-wrap text-center text-3xl font-medium tracking-tighter text-black dark:text-white">
-          Loading...
-        </p>
-        {/* )} */}
+        ) : (
+          <p className="whitespace-pre-wrap text-center text-3xl font-medium tracking-tighter text-black dark:text-white">
+            Loading...
+          </p>
+        )}
       </div>
     </div>
   );
