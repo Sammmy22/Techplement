@@ -16,6 +16,7 @@ const initializeAuthors = async () => {
       if (!authors.includes(quote.author)) {
         authors.push(quote.author);
       }
+      authors.sort((a, b) => a.localeCompare(b));
       return authors;
     }, []);
   }

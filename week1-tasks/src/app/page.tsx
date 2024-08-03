@@ -12,12 +12,14 @@ type Quote = {
 };
 
 export default function Home() {
+  localStorage.setItem("theme", "dark");
   const [randomQuote, setRandomQuote] = useState<Quote | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("/api/quotes", { method: "GET" });
       const { randomQuote } = await response.json();
+
       setRandomQuote(randomQuote);
     };
 
@@ -29,16 +31,24 @@ export default function Home() {
       <Navbar />
       <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
         <div className="relative z-10 flex flex-col w-full max-w-6xl px-6 md:px-12 items-center">
-          <p className="whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white mb-4">
-            {randomQuote?.content}
-          </p>
-          <p className="whitespace-pre-wrap text-center text-3xl font-medium tracking-tighter text-black dark:text-white">
-            - {randomQuote?.author}
-          </p>
+          {randomQuote ? (
+            <>
+              <p className="whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white mb-4">
+                {randomQuote.content}
+              </p>
+              <p className="whitespace-pre-wrap text-center text-3xl font-medium tracking-tighter text-black dark:text-white">
+                - {randomQuote.author}
+              </p>
+            </>
+          ) : (
+            <p className="whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white mb-4">
+              Picking...
+            </p>
+          )}
         </div>
         <DotPattern
           className={cn(
-            "absolute inset-0 max-md:[mask-image:radial-gradient(300px_circle_at_center,white,transparent)] md:[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
+            "absolute inset-0 max-md:[mask-image:radial-gradient(400px_circle_at_center,white,transparent)] md:[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
           )}
         />
       </div>
