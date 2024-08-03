@@ -40,10 +40,6 @@ const AuthorPage = () => {
     }
   }, [value]);
 
-  if (!authorQuotes) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
       <Navbar />
@@ -54,16 +50,22 @@ const AuthorPage = () => {
       </p>
 
       <div className="flex flex-col justify-center items-center">
-        {authorQuotes.map((quote) => (
-          <Card className="w-3/4 my-3" key={quote._id}>
-            <CardHeader>
-              <CardTitle>{quote.content}</CardTitle>
-            </CardHeader>
-            <CardFooter>
-              <p>Tags: {quote.tags.join(", ")}</p>
-            </CardFooter>
-          </Card>
-        ))}
+        {/* {authorQuotes ? (
+          authorQuotes.map((quote) => (
+            <Card className="w-3/4 my-3" key={quote._id}>
+              <CardHeader>
+                <CardTitle>{quote.content}</CardTitle>
+              </CardHeader>
+              <CardFooter>
+                <p>Tags: {quote.tags.join(", ")}</p>
+              </CardFooter>
+            </Card>
+          ))
+        ) : ( */}
+        <p className="whitespace-pre-wrap text-center text-3xl font-medium tracking-tighter text-black dark:text-white">
+          Loading...
+        </p>
+        {/* )} */}
       </div>
     </div>
   );
