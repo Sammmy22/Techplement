@@ -12,7 +12,6 @@ type Quote = {
 };
 
 export default function Home() {
-  localStorage.setItem("theme", "dark");
   const [randomQuote, setRandomQuote] = useState<Quote | null>(null);
 
   useEffect(() => {
