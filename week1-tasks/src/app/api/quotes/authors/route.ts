@@ -1,7 +1,7 @@
 import { getQuotes } from "@/lib/firebase";
 
 let AUTHORS: string[] = [];
-
+import QUOTES from "../quotes.json";
 type Quote = {
   _id: string;
   content: string;
@@ -10,9 +10,10 @@ type Quote = {
 };
 
 const initializeAuthors = async () => {
-  const quotes = await getQuotes();
-  if (quotes) {
-    AUTHORS = quotes.reduce((authors: string[], quote: Quote) => {
+  // const quotes = await getQuotes();
+
+  if (QUOTES) {
+    AUTHORS = QUOTES.reduce((authors: string[], quote: Quote) => {
       if (!authors.includes(quote.author)) {
         authors.push(quote.author);
       }
@@ -36,10 +37,10 @@ export async function POST(request: Request) {
   const data = await request.json();
   const { author } = data;
 
-  const quotes = await getQuotes();
+  // const quotes = await getQuotes();
 
-  if (quotes && AUTHORS.includes(author)) {
-    const filteredQuotes = quotes.filter(
+  if (QUOTES && AUTHORS.includes(author)) {
+    const filteredQuotes = QUOTES.filter(
       (quote: Quote) => quote.author === author
     );
     return new Response(JSON.stringify({ quotes: filteredQuotes }), {
