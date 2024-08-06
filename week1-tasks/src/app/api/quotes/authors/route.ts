@@ -29,7 +29,10 @@ export async function GET(request: Request) {
   await initializeAuthors();
   return new Response(JSON.stringify({ AUTHORS }), {
     status: 200,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache",
+    },
   });
 }
 
@@ -51,6 +54,9 @@ export async function POST(request: Request) {
 
   return new Response(JSON.stringify({ error: "Author not found" }), {
     status: 404,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache",
+    },
   });
 }

@@ -7,6 +7,9 @@ export async function GET(request: Request) {
   const randomQuote = QUOTES[randomIndex];
   return new Response(JSON.stringify({ randomQuote }), {
     status: 200,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache",
+    },
   });
 }
