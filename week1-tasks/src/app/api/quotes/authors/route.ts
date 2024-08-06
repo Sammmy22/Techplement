@@ -10,10 +10,10 @@ type Quote = {
 };
 
 const initializeAuthors = async () => {
-  // const quotes = await getQuotes();
+  const quotes = await getQuotes();
 
-  if (QUOTES) {
-    AUTHORS = QUOTES.reduce((authors: string[], quote: Quote) => {
+  if (quotes) {
+    AUTHORS = quotes.reduce((authors: string[], quote: Quote) => {
       if (!authors.includes(quote.author)) {
         authors.push(quote.author);
       }
@@ -40,10 +40,10 @@ export async function POST(request: Request) {
   const data = await request.json();
   const { author } = data;
 
-  // const quotes = await getQuotes();
+  const quotes = await getQuotes();
 
-  if (QUOTES && AUTHORS.includes(author)) {
-    const filteredQuotes = QUOTES.filter(
+  if (quotes && AUTHORS.includes(author)) {
+    const filteredQuotes = quotes.filter(
       (quote: Quote) => quote.author === author
     );
     return new Response(JSON.stringify({ quotes: filteredQuotes }), {
